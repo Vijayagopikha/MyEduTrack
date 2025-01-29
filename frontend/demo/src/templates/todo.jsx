@@ -6,6 +6,9 @@ const Todo = () => {
     const [title,setTitle] = useState();
     const [description,setDescription] = useState();
     const [deadLine, setDeadLine] = useState();
+
+    const [isActive, setIsActive] = useState(false);
+
     const navigate = useNavigate();
     const handleSubmit = () => {
         e.preventDefault();
@@ -47,8 +50,10 @@ const Todo = () => {
                 </form>
             </div>
             <div>
-                <button type = "button" className='btn'>ToDO</button>
-                <button type = "button" className='btn'>Completed</button>
+                <button type = "button" className={`isActive ${isActive === false && 'active'}`} 
+                onClick = {() => setIsActive(false) }>ToDO</button> 
+                <button type = "button" className={`isActive ${isActive === true && 'active'}`}
+                onClick = {() => setIsActive(true)}>Completed</button>
             </div>
           </div>
         </div>
