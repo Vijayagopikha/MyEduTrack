@@ -84,3 +84,7 @@ nav li{
    
 }
 
+/*todo*/
+.active{
+    background-color: blueviolet;
+}

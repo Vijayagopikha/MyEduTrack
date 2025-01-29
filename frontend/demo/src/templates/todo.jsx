@@ -1,16 +1,23 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
+import './styles.css';
+
+import { MdDelete } from "react-icons/md";
+import { GiCheckMark } from "react-icons/gi";
+
 const Todo = () => {
 
     const [title,setTitle] = useState();
     const [description,setDescription] = useState();
     const [deadLine, setDeadLine] = useState();
 
+    const[todo,setTodo] = useState([]);
+
     const [isActive, setIsActive] = useState(false);
 
     const navigate = useNavigate();
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         axios.post('' , {title,description,deadLine})
         .then(result => {console.log(result)
@@ -46,14 +53,22 @@ const Todo = () => {
                     onChange={(e) => setDeadLine(e.target.value)}
                     ></input>
                 </div>
-                <button type = "button" className='btn'>Add</button>
+                <button type = "submit" className='btn'>Add</button>
                 </form>
             </div>
             <div>
                 <button type = "button" className={`isActive ${isActive === false && 'active'}`} 
-                onClick = {() => setIsActive(false) }>ToDO</button> 
+                onClick = {() => setIsActive(false) }>ToDo</button> 
                 <button type = "button" className={`isActive ${isActive === true && 'active'}`}
                 onClick = {() => setIsActive(true)}>Completed</button>
+            </div>
+            <div>
+                <div>
+                    <div>
+                        <MdDelete className='icon'></MdDelete>
+                        <GiCheckMark className='icon1'></GiCheckMark>
+                    </div>
+                </div>
             </div>
           </div>
         </div>
