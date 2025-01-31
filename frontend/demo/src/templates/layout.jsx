@@ -4,7 +4,7 @@ import Navbar from './navbar';
 
 const Layout = ({ children }) => {
   const location = useLocation();
-  const excludedRoutes = ['/login']; // Pages where Navbar should NOT appear
+  const excludedRoutes = ['/todo']; // Pages where Navbar should NOT appear
 
   return (
     <div>
