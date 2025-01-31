@@ -2,6 +2,7 @@ import React, { useState} from 'react'
 import {Link} from "react-router-dom";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import sign from '../assets/s5.png';
 
 const Signup = () => {
   const [name, setName]  =useState();
@@ -18,13 +19,15 @@ const Signup = () => {
     .then(err => console.log(err))
   }
   return (
-    <div>
+    <div className='outer'>
+      <div className='signcon'>
+        <img src = {sign} alt = "signup"></img>
       <div className='sign'>
         <h2>Sign Up</h2>
         <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor = "name">Username:</label>
-            <input type = "text" placeholder='Enter you name' id= "name" 
+            <input type = "text" placeholder='Enter your name' id= "name" 
               name = "name" value = {name} 
               onChange={(e) => setName(e.target.value)}
               required />
@@ -32,7 +35,7 @@ const Signup = () => {
           </div>
           <div>
            <label htmlFor = "email">Email:</label> 
-           <input type = "email"  id = "email"
+           <input type = "email" placeholder='Enter your email' id = "email"
            name=  "email" value = {email}
            onChange = {(e) => setEmail(e.target.value)}
            required />
@@ -44,10 +47,11 @@ const Signup = () => {
             onChange = {(e) => setPassword(e.target.value)}
             required />
            </div>
-           <button type = "submit" className='btn'>Sign Up</button>
+           <button type = "submit" className='btn2'>Sign Up</button>
         </form>
 
-        <p className = "conmy">Already have an account?<Link to = '/login' >Login</Link></p>
+        <p className = "conmy">Already have an account?<Link to = '/login' >Login Here</Link></p>
+    </div>
     </div>
     </div>
   )

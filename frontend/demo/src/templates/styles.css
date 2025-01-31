@@ -34,7 +34,9 @@ a{
     cursor: pointer;
 }
 
+/* rgb(249, 240, 248) */
 nav{
+    background-color: white;
     display:flex;
     align-items:center;
     justify-content: space-between;
@@ -83,6 +85,96 @@ nav li{
     object-fit: contain;
    
 }
+
+
+/*signup*/
+
+.outer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+   
+}  
+.signcon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 10px rgb(251, 224, 247);
+    border-radius: 10px;
+    width: fit-content;
+    background-color: rgb(250, 237, 249);
+    padding-right: 150px;
+    margin-top: 90px;
+   
+    gap: 70px;
+ 
+}
+
+.signcon img{
+    width: 100%;
+    max-width: 430px;
+   
+    object-fit: cover;
+    border-radius: 5px;
+    
+}
+.sign form{
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+   
+}
+.sign h2{
+    color: rgb(53, 7, 94);
+    font-size: 1.9rem;
+    
+    text-align: center;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.sign label{
+    color:rgb(75, 34, 111);
+    font-weight: bold;
+    margin-top: 17px;
+    display: flex;
+    font-size: 18px;
+}
+
+.sign input{
+    width: 130%;
+    padding: 7px;
+    border: 1.5px solid #292828;
+    border-radius: 5px;
+}
+
+.btn2{
+    padding: 10px;
+    font-size: 1rem;
+    background-color: rgb(53, 7, 94);
+    color: white;
+    border-radius: 5px;
+    margin-top: 20px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    width : 130%;
+}
+
+.conmy{
+    color:#5d5c5c;
+    margin-top:7px;
+}
+
+.conmy a{
+    color: rgb(53, 7, 94) ;
+}
+
+
+
+
+
 
 /*todo*/
 .active{
