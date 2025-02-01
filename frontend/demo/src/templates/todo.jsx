@@ -8,9 +8,9 @@ import { GiCheckMark } from "react-icons/gi";
 
 const Todo = () => {
 
-    const [title,setTitle] = useState();
-    const [description,setDescription] = useState();
-    const [deadLine, setDeadLine] = useState();
+    const [title,setTitle] = useState("");
+    const [description,setDescription] = useState("");
+    const [deadLine, setDeadLine] = useState("");
 
     const[todo,setTodo] = useState([]);
 
@@ -18,19 +18,31 @@ const Todo = () => {
 
     const navigate = useNavigate();
     const handleSubmit = (e) => {
+        let newTodo = {
+          title,
+          description,
+           deadLine
+        }
+
+       /* let update = [...todo];
+        update.push(newtodo);
+        setTodo(update); */
+        
         e.preventDefault();
-        axios.post('' , {title,description,deadLine})
+        axios.post('http://localhost:5000/todos' , newTodo)
         .then(result => {console.log(result)
-            navigate('/home')
+           setTodo([...todo, result.data])
+           
+            
         })
-        .then(err => console.log(err))
+        .catch((err) => console.log(err))
          
     }
     return(
         <div>
           <h1>My ToDo's</h1>
           <div>
-            <div>
+            <div className='todo-flex'>
                 <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor='title'>Title:</label>
@@ -62,13 +74,23 @@ const Todo = () => {
                 <button type = "button" className={`isActive ${isActive === true && 'active'}`}
                 onClick = {() => setIsActive(true)}>Completed</button>
             </div>
-            <div>
-                <div>
-                    <div>
-                        <MdDelete className='icon'></MdDelete>
-                        <GiCheckMark className='icon1'></GiCheckMark>
+            <div className='todo-list'>
+                {todo.map((item,index) => {
+                     return (
+                        <div className='todo-list-item' key = {index}>
+                            <div>
+                                <h3>{item.newTitle}</h3>
+                                <p>{item.newDescription}</p>
+                                <p>{item.newDeadLine}</p>
+                            </div>
+                        <div>
+                            <MdDelete className='icon'></MdDelete>
+                            <GiCheckMark className='icon1'></GiCheckMark>
+                        </div>
                     </div>
-                </div>
+                     )
+                })}
+               
             </div>
           </div>
         </div>
