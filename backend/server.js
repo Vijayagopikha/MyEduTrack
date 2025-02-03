@@ -6,7 +6,7 @@ dotenv.config()
 
 
 const Signup = require("./models/signup");
-const Todos = require("./models/todos");
+const todoRoutes = require("./routes/todos");
 
 
 
@@ -43,9 +43,9 @@ app.post('/login' ,(req,res) => {
 
 
 //todos
-app.post('/todos', (req,res) => {
-   
-})
+app.use('/todos', todoRoutes);
+
+
 app.listen(process.env.PORT, () => {
-    console.log("server is running");
+    console.log("connected to mongodb");
 })
