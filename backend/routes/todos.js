@@ -16,7 +16,9 @@ router.post('/', (req,res) => {
         
     })
     .then(result => res.json(result))
-    .catch(err => res.json(err))
+    .catch(err => {
+        res.status(500).json({ error: err.message });  
+    });
  
  })
 
@@ -25,5 +27,18 @@ router.get('/', (req,res) => {
     .then(result => res.json(result))
     .catch(err => res.json(err))
 })
+
+router.delete('/:id', (req,res) => {
+    Todo.findByIdAndDelete(req.params.id)
+    .then(() => res.json({message: 'Todo deleted successfully'}))
+    .catch(err => res.status(500).json({error: 'Server error'}));
+
+});
+
+router.patch(':/id', (req,res) => {
+    Todo.findByIdAndUpdate(req.params.id, {isCompleted: true}, {new:true})
+    .then(updateTodo => res.json(updateTodo))
+    .catch(err => res.status(500).json({error:'Server Error'}))
+});
 
 module.exports =  router;

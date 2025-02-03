@@ -231,3 +231,9 @@ nav li{
     justify-content: center;
     gap: 20px;
 }
+.icon{
+    cursor: pointer;
+}
+.icon1{
+    cursor: pointer;
+}

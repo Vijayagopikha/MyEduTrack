@@ -21,7 +21,7 @@ const Todo = () => {
         .then(res => res.json())
         .then(data => setTodo(data))
         .catch(err =>  console.log(err))
-    })
+    }, [])
     const handleSubmit = (e) => {
         e.preventDefault();
         let newTodo = {
@@ -30,9 +30,6 @@ const Todo = () => {
            deadline,
            isCompleted: false,
         }
-
-     
-        
         fetch('http://localhost:5000/todos' , {
             method: 'POST',
             headers:{
@@ -51,6 +48,28 @@ const Todo = () => {
          
     }
  
+    const handleDelete = (id) => {
+        fetch(`http://localhost:5000/todos/${id}`, {
+            method: 'DELETE'
+        })
+        .then(() => setTodo(todo.filter((todo) => todo._id !== id)))
+        .catch((err) => console.log(err))
+    }
+    
+    const handleCompleted = (id) => {
+       fetch(`http://localhost:5000/todos/${id}` ,{
+        method: 'PATCH',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ isCompleted: true }),
+       })
+       .then((res) => res.json())
+       .then((updatedTodo) => {
+           setTodo(todo.map((todo) => (todo._id === id) ? updatedTodo: todo));
+       })
+       .catch((err) => console.log(err));
+    }
+
+
     return(
         <div>
           <h1>My ToDo's</h1>
@@ -65,7 +84,7 @@ const Todo = () => {
                     ></input>
                 </div>
                 <div>
-                    <label htmlFor='description'>Discription:</label>
+                    <label htmlFor='description'>Description:</label>
                     <input type = "text" placeholder = "What's the task discription"
                     id = "description" name = "description" value = {description}
                     onChange={(e) => setDescription(e.target.value)}
@@ -78,27 +97,31 @@ const Todo = () => {
                     onChange={(e) => setDeadline(e.target.value)}
                     ></input>
                 </div>
-                <button type = "suubmit" className='btn' >Add</button>
+                <button type = "submit" className='btn' >Add</button>
                 </form>
             </div>
             <div>
-                <button type = "button" className={`isActive ${isActive === false && 'active'}`} 
+                <button type = "button" className={`isActive ${!isActive && 'active'}`} 
                 onClick = {() => setIsActive(false) }>ToDo</button> 
-                <button type = "button" className={`isActive ${isActive === true && 'active'}`}
+                <button type = "button" className={`isActive ${isActive && 'active'}`}
                 onClick = {() => setIsActive(true)}>Completed</button>
             </div>
             <div className='todo-list'>
-                {todo.map((item,index) => {
+                {todo
+                .filter(item => isActive ? item.isCompleted : !item.isCompleted)
+                .map((item,index) => {
                      return (
-                        <div className='todo-list-item' key = {index}>
+                        <div className='todo-list-item' key = {item._id}>
                             <div>
                                 <h3>{item.title}</h3>
                                 <p>{item.description}</p>
                                 <p>{item.deadline}</p>
                             </div>
                         <div>
-                            <MdDelete className='icon'></MdDelete>
-                            <GiCheckMark className='icon1'></GiCheckMark>
+                            <MdDelete className='icon' onClick = {() => handleDelete(item._id)}></MdDelete>
+                            {!item.isCompleted &&
+                            <GiCheckMark className='icon1' onClick = {() => handleCompleted(item._id)}></GiCheckMark>
+                           }
                         </div>
                     </div>
                      )
