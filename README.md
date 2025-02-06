@@ -18,3 +18,19 @@
   2. Sign Up / Sign In
   3. Attendance Entry
   4. Subject-Wise mark entry
+  5. ToDo list
+
+## Navigation Workflow
+  1. Home
+  2. Sign Up / Sign In (/auth)
+  3. From Sign In, students can navigate to:
+     1. Attendance (/attendance) – Mark or review attendance.
+     2. Marks Entry (/marks) – Add/view academic performance & CGPA.
+     3. To-Do List (/tasks) – Manage study tasks & assignments.
+  4. Logout – Securely exit the system.
+
+## Tech Stack
+  MERN Stack
+
+# Thank You
+
