@@ -15,6 +15,7 @@ const Login = () => {
     axios.post('http://localhost:5000/login' , {email, password})
     .then(result => {console.log(result)
      if(result.data === "success"){
+      localStorage.getItem('userEmail', email);
       navigate('/home')
      }
     })

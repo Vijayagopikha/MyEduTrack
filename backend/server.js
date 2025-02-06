@@ -7,6 +7,7 @@ dotenv.config()
 
 const Signup = require("./models/signup");
 const todoRoutes = require("./routes/todos");
+const Uploads = require("./routes/image");
 
 
 
@@ -45,6 +46,8 @@ app.post('/login' ,(req,res) => {
 //todos
 app.use('/todos', todoRoutes);
 
+//images upload
+app.use('/upload' , Uploads);
 
 app.listen(process.env.PORT, () => {
     console.log("connected to mongodb");
