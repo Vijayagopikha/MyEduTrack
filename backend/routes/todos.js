@@ -35,7 +35,7 @@ router.delete('/:id', (req,res) => {
 
 });
 
-router.patch(':/id', (req,res) => {
+router.patch('/:id', (req,res) => {
     Todo.findByIdAndUpdate(req.params.id, {isCompleted: true}, {new:true})
     .then(updateTodo => res.json(updateTodo))
     .catch(err => res.status(500).json({error:'Server Error'}))

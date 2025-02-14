@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import sign from '../assets/s5.png';
 
 const Signup = () => {
-  const [name, setName]  =useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [name, setName]  =useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
   const handleSubmit = (e) => {
@@ -41,7 +41,7 @@ const Signup = () => {
            required />
           </div>
            <div>
-            <label htmlFor = "passowrd">Password:</label>
+            <label htmlFor = "password">Password:</label>
             <input type = "password" placeholder = "Enter your password" id = "password"
             name = "password" value = {password}
             onChange = {(e) => setPassword(e.target.value)}

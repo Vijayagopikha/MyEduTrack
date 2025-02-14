@@ -49,14 +49,17 @@ const Todo = () => {
     }
  
     const handleDelete = (id) => {
+        if (window.confirm('Are you sure you want to delete this task?')) {
         fetch(`http://localhost:5000/todos/${id}`, {
             method: 'DELETE'
         })
         .then(() => setTodo(todo.filter((todo) => todo._id !== id)))
         .catch((err) => console.log(err))
     }
+}
     
     const handleCompleted = (id) => {
+        if (window.confirm('Are you sure you want to mark this task as completed?')) {
        fetch(`http://localhost:5000/todos/${id}` ,{
         method: 'PATCH',
         headers:{'Content-Type':'application/json'},
@@ -68,6 +71,7 @@ const Todo = () => {
        })
        .catch((err) => console.log(err));
     }
+}
 
 
     return(

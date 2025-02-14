@@ -6,8 +6,8 @@ import login from '../assets/s4.png';
 
 
 const Login = () => {
-  const [email, setEmail] = useState();
-  const [password,setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password,setPassword] = useState("");
 
   const navigate = useNavigate();
   const handleSubmit = (e) => {
