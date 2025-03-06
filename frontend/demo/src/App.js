@@ -1,5 +1,6 @@
 import  {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Layout from './templates/layout';
+import Layout2 from "./templates/layout2"; 
 import Home from './templates/home';
 import Signup from './templates/signup';
 import Login from './templates/login';
@@ -7,14 +8,14 @@ import Todo from './templates/todo';
 const App = () => {
     return(
         <Router>
-            <Layout>
+          
             <Routes>
-            <Route path = "/" element = {<Home />}></Route>
-            <Route path = "/signup"  element = {<Signup />}></Route>
-            <Route path = "/login" element = {<Login />}></Route>
-            <Route path = "/todo" element ={<Todo />}></Route>
+            <Route path = "/" element = {<Layout><Home /></Layout>}></Route>
+            <Route path = "/signup"  element = {<Layout><Signup /></Layout>}></Route>
+            <Route path = "/login" element = {<Layout><Login /></Layout>}></Route>
+            <Route path = "/todo" element ={<Layout2><Todo /></Layout2>}></Route>
             </Routes>
-            </Layout>
+
         </Router>
     )
 }

@@ -3,6 +3,9 @@ import {Link} from "react-router-dom";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import sign from '../assets/s5.png';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Signup = () => {
   const [name, setName]  =useState("");
@@ -13,10 +16,30 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios.post('http://localhost:5000/signup', {name, email, password})
-    .then(result => {console.log(result)
-    navigate('/login')
+    .then(result => {console.log(result);
+      toast.success("Signup Successful!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        style: { backgroundColor: "#90EE90", color: "black" }, // Light green background
+      });
+      setTimeout(() => navigate('/login'), 3000); // Redirect after toast
     })
-    .then(err => console.log(err))
+    .catch(err => {
+      console.log(err);
+      toast.error("Signup Failed! Try again.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        style: { backgroundColor: "#FF7F7F", color: "white" }, // Light red background
+      });
+    });
   }
   return (
     <div className='outer'>
