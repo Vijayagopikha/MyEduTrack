@@ -9,6 +9,16 @@ import { FaCheck } from "react-icons/fa";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
+const ConfirmationModal = ( {message, onConfirm, onCancel}) => {
+    <div className='model-over'>
+        <div className='modal'>
+            <p>{message}</p>
+            <button onClick = {onConfirm} className='btn-yes'>Yes</button>
+            <button onClick = {onCancel} className='btn-no'>No</button>
+        </div>
+    </div>
+}
 const Todo = () => {
 
     const [title,setTitle] = useState("");
@@ -63,6 +73,7 @@ const Todo = () => {
          
     }
  
+
     const handleDelete = (id) => {
         if (window.confirm('Are you sure you want to delete this task?')) {
         fetch(`http://localhost:5000/todos/${id}`, {
@@ -95,12 +106,11 @@ const Todo = () => {
 
     }
 }
-    
     const handleCompleted = (id) => {
         if (window.confirm('Are you sure you want to mark this task as completed?')) {
        fetch(`http://localhost:5000/todos/${id}` ,{
         method: 'PATCH',
-        headers:{'Content-Type':'application/json'},
+        headers:{'Content-Type':'application/json'}, 
         body: JSON.stringify({ isCompleted: true }),
        })
        .then((res) => res.json())
@@ -129,6 +139,7 @@ const Todo = () => {
         });
        });
     }
+
 }
 
 const showMessage = (message, type)=>{
