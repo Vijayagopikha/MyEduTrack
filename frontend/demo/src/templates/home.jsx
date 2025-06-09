@@ -5,14 +5,14 @@ import { Link } from 'react-router-dom';
 const home = () => {
   return (
     <div>
-         
-        <div className='container'>
+
+      <div className='container'>
         <div className='content'>
-              <h1>Welcome to MyEduTrack</h1>
-            </div>
-            <img src = {s1} alt = "home"></img>
-            
+          <h1>Welcome to MyEduTrack</h1>
         </div>
+        <img src={s1} alt="home"></img>
+
+      </div>
     </div>
   )
 }

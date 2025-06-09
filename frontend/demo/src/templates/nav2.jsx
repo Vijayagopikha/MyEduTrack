@@ -8,7 +8,7 @@ const Nav2 = () => {
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem('userEmail');
-    toast.success("Logout Successful!",{
+    toast.success("Logout Successful!", {
       position: "top-right",
       autoClose: 1000,
       hideProgressBar: false,
@@ -17,22 +17,22 @@ const Nav2 = () => {
       draggable: true,
       style: { backgroundColor: "#90EE90", color: "black" },
     });
-    setTimeout(() => navigate('/'),1000);
+    setTimeout(() => navigate('/'), 1000);
   }
   return (
     <div>
       <ToastContainer />
       <nav className='nav'>
-    <h1>MyEduTrack</h1>
-    <ul className='navul'>
+        <h1>MyEduTrack</h1>
+        <ul className='navul'>
 
-        
-        <li>
-          <Link to = "/login"><button type= "button" className='btn1'>Attendance</button></Link></li>
-        <li>  <Link to = "/signup"><button type= "button" className='btn'>Marks</button></Link></li>
-        <li><button type= "button" className='btn' onClick={handleLogout}>LogOut</button></li>
-    </ul>
-  </nav></div>
+
+          <li>
+            <Link to="/login"><button type="button" className='btn1'>Attendance</button></Link></li>
+          <li>  <Link to="/signup"><button type="button" className='btn'>Marks</button></Link></li>
+          <li><button type="button" className='btn' onClick={handleLogout}>LogOut</button></li>
+        </ul>
+      </nav></div>
   )
 }
 
