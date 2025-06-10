@@ -2,12 +2,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const path = require('path');
+
 dotenv.config()
 
 
 const Signup = require("./models/signup");
 const todoRoutes = require("./routes/todos");
-const Uploads = require("./routes/image");
+const Attendance = require("./routes/attendance.routes")
 
 
 
@@ -26,7 +28,7 @@ app.post('/signup', (req, res) => {
 //login
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
-    
+
     Signup.findOne({ email: email })
 
         .then(user => {
@@ -50,7 +52,10 @@ app.post('/login', (req, res) => {
 app.use('/todos', todoRoutes);
 
 //images upload
-app.use('/upload', Uploads);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+//attendance
+app.use('/attendance', Attendance);
 
 app.listen(process.env.PORT, () => {
     console.log("connected to mongodb");
