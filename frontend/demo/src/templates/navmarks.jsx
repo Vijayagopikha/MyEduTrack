@@ -5,7 +5,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 
-const Navatten = () => {
+const Navmarks = () => {
     const navigate = useNavigate();
     const handleLogout = () => {
         localStorage.removeItem('userEmail');
@@ -30,11 +30,11 @@ const Navatten = () => {
                     <li>
                         <Link to='/todo'><button className='btn' type='button'>ToDo</button></Link>
                     </li>
-                    <li>  <Link to="/marks"><button type="button" className='btn'>Marks</button></Link></li>
+                    <li>  <Link to="/marks"><button type="button" className='btn1'>Attendance</button></Link></li>
                     <li><button type="button" className='btn' onClick={handleLogout}>LogOut</button></li>
                 </ul>
             </nav>
         </div>
     )
 }
-export default Navatten;
+export default Navmarks;

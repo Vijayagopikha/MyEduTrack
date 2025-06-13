@@ -4,7 +4,7 @@ import Navbar2 from './nav2';
 
 const Layout2 = ({ children }) => {
   const location = useLocation();
-  const excludedRoutes = ['/home', '/navbar', '/login', '/signup'];
+  const excludedRoutes = ['/home', '/navbar', '/login', '/signup','/attendance','/marks'];
 
   const shouldShowNavbar = !excludedRoutes.some(route => location.pathname.startsWith(route));
 
