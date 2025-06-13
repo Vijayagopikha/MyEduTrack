@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
-import attendance  from './attendence';
+
 const Nav2 = () => {
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -30,7 +30,7 @@ const Nav2 = () => {
 
           <li>
             <Link to="/attendance"><button type="button" className='btn1'>Attendance</button></Link></li>
-          <li>  <Link to="/signup"><button type="button" className='btn'>Marks</button></Link></li>
+          <li>  <Link to="/marks"><button type="button" className='btn'>Marks</button></Link></li>
           <li><button type="button" className='btn' onClick={handleLogout}>LogOut</button></li>
         </ul>
       </nav></div>

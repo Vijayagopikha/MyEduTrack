@@ -43,7 +43,7 @@ router.get('/', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     await Todo.findByIdAndDelete(req.params.id)
         .then(() => res.json({ message: 'Todo deleted successfully' }))
-        .catch(err => res.status(500).json({ error: 'Server error' }));
+        .catch(error => res.status(500).json({ error: 'Server error' }));
 
 });
 

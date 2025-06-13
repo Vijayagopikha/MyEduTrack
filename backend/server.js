@@ -10,6 +10,7 @@ dotenv.config()
 const Signup = require("./models/signup");
 const todoRoutes = require("./routes/todos");
 const Attendance = require("./routes/attendance.routes")
+const Marks = require("./routes/marks");
 
 
 
@@ -56,6 +57,9 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 //attendance
 app.use('/attendance', Attendance);
+
+//marks
+app.use('/marks',Marks);
 
 app.listen(process.env.PORT, () => {
     console.log("connected to mongodb");
