@@ -30,7 +30,7 @@ const Navmarks = () => {
                     <li>
                         <Link to='/todo'><button className='btn' type='button'>ToDo</button></Link>
                     </li>
-                    <li>  <Link to="/marks"><button type="button" className='btn1'>Attendance</button></Link></li>
+                    <li>  <Link to="/attendance"><button type="button" className='btn1'>Attendance</button></Link></li>
                     <li><button type="button" className='btn' onClick={handleLogout}>LogOut</button></li>
                 </ul>
             </nav>

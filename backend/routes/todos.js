@@ -55,4 +55,26 @@ router.patch('/:id', async (req, res) => {
         .catch(err => res.status(500).json({ error: 'Server Error' }))
 });
 
+router.put('/:id', async (req, res) => {
+    try {
+        const { title, description, deadline } = req.body;
+        const update = {};
+        if (title) update.title = title;
+        if (description) update.description = description;
+        if (deadline) update.deadline = deadline;
+
+        const updateTodo = await Todo.findByIdAndUpdate(
+            req.params.id,
+            { $set: update },
+            { new: true }
+        )
+        if (!updateTodo) {
+            return res.status(404).json({ error: 'Todo not found' });
+        }
+        res.json(updateTodo);
+    } catch (err) {
+        res.status(500).json({ error: 'Server Error' });
+    }
+})
+
 module.exports = router;

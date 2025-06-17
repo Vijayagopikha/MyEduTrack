@@ -23,7 +23,7 @@ router.post('/uploadImage', upload.single('image'), async (req, res) => {
             const { email, date } = req.body;
             const inputDate = moment(date).startOf('day').toDate();
 
-            const attendance = await Attendance.findOne({
+            let attendance = await Attendance.findOne({
                 email,
                 date: {
                     $gte: moment(inputDate).startOf('day').toDate(),
@@ -45,7 +45,7 @@ router.post('/uploadImage', upload.single('image'), async (req, res) => {
             }
 
             await attendance.save();
-            res.json({ message: 'Image uploaded successfully', imageUrl });
+            res.json({ message: 'Image uploaded successfully', imageUrl , updatedRecord: attendance });
         }
         else {
             res.status(400).json({ message: 'No image upload' });
@@ -77,5 +77,10 @@ router.post('/mark', async (req, res) => {
         res.status(500).json({ message: 'error', error });
     }
 });
+router.delete('/:id', async(req, res) => {
+    await Attendance.findByIdAndDelete(req.params.id)
+    .then(() => res.json({ message: 'Attendance deleted successfully' }))
+    .catch(error => res.status(500).json({ error: 'Server error' }))
+})
 
 module.exports = router;

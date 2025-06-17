@@ -6,6 +6,7 @@ import './styles.css';
 import { MdDelete } from "react-icons/md";
 import { GiCheckMark } from "react-icons/gi";
 import { FaCheck } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -21,6 +22,9 @@ const Todo = () => {
 
     const [isActive, setIsActive] = useState(false);
     const [successMessage, setSuccessMessage] = useState({ text: "", type: "" });
+
+    const [isEditing, setIsEditing] = useState(false);
+    const [editId, setEditId] = useState();
 
     useEffect(() => {
         const userEmail = localStorage.getItem("userEmail");
@@ -38,32 +42,81 @@ const Todo = () => {
             showMessage("User not logged in!", "error");
             return;
         }
-        let newTodo = {
-            title,
-            description,
-            deadline,
-            email: userEmail,
-            isCompleted: false,
 
-        }
-        fetch('http://localhost:5000/todos', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newTodo)
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data)
-                setTodo([...todo, data]);
-                setTitle("")
-                setDescription("")
-                setDeadline("")
-                showMessage("Task added successfully!", "success")
+        const update = {};
+        if (title) update.title = title;
+        if (description) update.description = description;
+        if (deadline) update.deadline = deadline;
+
+        if (isEditing) {
+            fetch(`http://localhost:5000/todos/${editId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(update)
             })
-            .catch((err) => console.log(err))
+                .then((res) => res.json())
+                .then((update) => {
+                    setTodo(todo.map((item) => item._id === editId ? update : item));
+                    toast.success("Task Updated Successfully!", {
+                        position: "top-right",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        style: { color: "black" },
+                    });
+                    showMessage("Task updated successfully!", "success");
 
+                    setTitle("");
+                    setDescription("");
+                    setDeadline("");
+                    setIsEditing(false);
+                    setEditId(null);
+                })
+                .catch((err) => {
+                    console.log(err);
+                    showMessage("Failed to update task. Try again!", "error");
+                })
+        }
+        else {
+            let newTodo = {
+                title,
+                description,
+                deadline,
+                email: userEmail,
+                isCompleted: false,
+
+            }
+            fetch('http://localhost:5000/todos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newTodo)
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data)
+                    setTodo([...todo, data]);
+                    setTitle("")
+                    setDescription("")
+                    setDeadline("")
+                    toast.success("Task Added Successfully!", {
+                        position: "top-right",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        style: { color: "black" },
+                    });
+                    showMessage("Task added successfully!", "success")
+                })
+                .catch((err) => console.log(err))
+        }
     }
 
 
@@ -137,7 +190,15 @@ const Todo = () => {
         }
 
     }
-
+    const handleEdit = (item) => {
+        if (window.confirm('Are you sure you want to edit this task?')) {
+            setTitle(item.title);
+            setDescription(item.description);
+            setDeadline(item.deadline.split('T')[0]);
+            setIsEditing(true);
+            setEditId(item._id);
+        }
+    }
     const showMessage = (message, type) => {
         setSuccessMessage({ text: message, type });
         setTimeout(() => {
@@ -180,7 +241,9 @@ const Todo = () => {
                             onChange={(e) => setDeadline(e.target.value)}
                         ></input>
                     </div>
-                    <button type="submit" className='btn-add' >Add</button>
+                    <button type="submit" className='btn-add'  >
+                        {isEditing ? "Update Task" : "Add Task"}
+                    </button>
                 </div>
             </form>
 
@@ -202,9 +265,12 @@ const Todo = () => {
                                     <p>{new Date(item.deadline).toISOString().split('T')[0]}</p>
                                 </div>
                                 <div className='icon-container'>
+                                    <FaEdit className='icon-edit' onClick={() => handleEdit(item)}></FaEdit>
                                     {!item.isCompleted &&
                                         <GiCheckMark className='icon1' onClick={() => handleCompleted(item._id)}></GiCheckMark>
+
                                     }
+
                                     <MdDelete className='icon' onClick={() => handleDelete(item._id)}></MdDelete>
 
                                 </div>
